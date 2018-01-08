@@ -1,6 +1,6 @@
 # producer/githooks
 
-Naive Git hooks installable by Composer.
+Naive Git hooks, installable by Composer.
 
 `composer require-dev producer/githooks ~0.x`
 
