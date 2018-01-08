@@ -1,3 +1,3 @@
 # producer/githooks
 
-Naive Git hooks installable by Composer.
+Naive Git hooks, installable by Composer.
