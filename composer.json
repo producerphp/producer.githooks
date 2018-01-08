@@ -1,0 +1,34 @@
+{
+    "name": "producer/githooks",
+    "description": "Git hook scripts via composer",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paul M. Jones",
+            "email": "Producer88@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Producer\\Githooks\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Producer\\Githooks\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "pds/skeleton": "~1.0"
+    },
+    "scripts": {
+        "post-package-install": [
+            "Producer\\Githooks\\Composer::postPackageInstall"
+        ]
+    },
+    "minimum-stability": "dev"
+}
