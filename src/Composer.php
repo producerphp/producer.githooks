@@ -6,8 +6,6 @@ use Composer\Script\Event;
 
 class Composer
 {
-    x
-
     public static function postPackageInstall(PackageEvent $event) : int
     {
         $dirs = [
@@ -29,13 +27,25 @@ class Composer
             return 1;
         }
 
-        $precommit = "{$hooks}/pre-commit";
-        if (! is_file($precommit)) {
-            touch($precommit);
+        $hook = "{$hooks}/pre-commit";
+        $script = dirname(__DIR__) . '/bin/pre-commit.php';
+        $cmd = "php {$script}" . PHP_EOL;
+
+        if (! is_file($hook)) {
+            echo "Creating pre-commit hook." . PHP_EOL;
+            file_put_contents($hook, $cmd);
+            chmod('+x', $hook);
+            return 0;
         }
 
-        $cmd = 'php ' . dirname(__DIR__) . '/bin/pre-commit.php';
-        file_put_contents($precommit, PHP_EOL . $cmd . PHP_EOL, FILE_APPEND);
+        $code = file_get_contents($hook);
+        if (strpos($code, $script) !== false) {
+            echo "Appending to existing pre-commit hook." . PHP_EOL;
+            file_put_contents($hook, PHP_EOL . $cmd, FILE_APPEND);
+            return 0;
+        }
+
+        echo "Script appears to be in pre-commit hook already." . PHP_EOL;
         return 0;
     }
 }
