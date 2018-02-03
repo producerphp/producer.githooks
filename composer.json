@@ -1,6 +1,6 @@
 {
     "name": "producer/githooks",
-    "description": "Git hook scripts via composer",
+    "description": "Git hook scripts via Composer",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -12,11 +12,6 @@
     "autoload": {
         "psr-4": {
             "Producer\\Githooks\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Producer\\Githooks\\": "tests/"
         }
     },
     "require": {
