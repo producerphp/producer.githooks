@@ -25,16 +25,4 @@
     "require-dev": {
         "pds/skeleton": "~1.0"
     },
-    "scripts": {
-        "post-package-install": [
-            "Producer\\Githooks\\Composer::postPackageInstall"
-        ],
-        "post-install": [
-            "Producer\\Githooks\\Composer::postInstall"
-        ],
-        "post-update": [
-            "Producer\\Githooks\\Composer::postUpdate"
-        ]
-    },
-    "minimum-stability": "dev"
 }
