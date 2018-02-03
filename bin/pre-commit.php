@@ -14,7 +14,8 @@ foreach ($files as $file) {
 }
 
 if (! $autoloader) {
-    echo "Could not find autoloader." . PHP_EOL;
+    echo "Producer Githooks could not find a Composer autoloader." . PHP_EOL;
+    echo "Please issue `composer install` or `composer update` first." . PHP_EOL;
     exit(1);
 }
 
