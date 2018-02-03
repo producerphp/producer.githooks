@@ -6,7 +6,22 @@ use Composer\Script\Event;
 
 class Composer
 {
+    public static function postInstall(Event $event) : int
+    {
+        return static::gitPreCommit();
+    }
+
+    public static function postUpdate(Event $event) : int
+    {
+        return static::gitPreCommit();
+    }
+
     public static function postPackageInstall(PackageEvent $event) : int
+    {
+        return static::gitPreCommit();
+    }
+
+    protected static function gitPreCommit() : int
     {
         $dirs = [
             dirname(__DIR__) . '/.git/hooks',
@@ -32,20 +47,20 @@ class Composer
         $cmd = "php {$script}" . PHP_EOL;
 
         if (! is_file($hook)) {
-            echo "Creating pre-commit hook." . PHP_EOL;
+            echo "Creating pre-commit hook with the producer/githooks script." . PHP_EOL;
             file_put_contents($hook, $cmd);
-            chmod('+x', $hook);
+            chmod($hook, 0755);
             return 0;
         }
 
         $code = file_get_contents($hook);
-        if (strpos($code, $script) !== false) {
-            echo "Appending to existing pre-commit hook." . PHP_EOL;
+        if (strpos($code, $script) === false) {
+            echo "Appending the producer/githooks script to existing pre-commit hook." . PHP_EOL;
             file_put_contents($hook, PHP_EOL . $cmd, FILE_APPEND);
             return 0;
         }
 
-        echo "Script appears to be in pre-commit hook already." . PHP_EOL;
+        echo "The producer/githooks script appears to be in the pre-commit hook already." . PHP_EOL;
         return 0;
     }
 }
