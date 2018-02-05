@@ -1,6 +1,5 @@
 <?php
 $dirs = [
-    dirname(__DIR__) . '/.git/hooks',
     dirname(dirname(dirname(dirname(__DIR__)))) . '/.git/hooks',
 ];
 
@@ -18,8 +17,10 @@ if ($hooks === false) {
     exit(1);
 }
 
+echo "Git hooks at {$hooks}." . PHP_EOL;
+
 $hook = "{$hooks}/pre-commit";
-$script = dirname(__DIR__) . '/bin/pre-commit.php';
+$script = __DIR__ . '/pre-commit.php';
 $cmd = "php {$script}" . PHP_EOL;
 
 if (! is_file($hook)) {

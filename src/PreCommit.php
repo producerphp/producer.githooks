@@ -8,7 +8,7 @@ class PreCommit
         $files = $this->getChangedFiles();
         foreach ($files as $file) {
             $exit = $this->lint($file);
-            if ($exit !== 0) {
+            if ($exit === 1) {
                 return $exit;
             }
         }
@@ -22,12 +22,16 @@ class PreCommit
         $tree = ($exit == 0) ? 'HEAD' : '4b825dc642cb6eb9a060e54bf8d69288fbee4904';
 
         // filter on added/copied/modified PHP files
-        exec("git diff-index --diff-filter=ACM --name-only {$tree} *.php", $files);
+        exec("git diff-index --diff-filter=ACM --name-only {$tree}", $files);
         return $files;
     }
 
-    protected function lint(string $file) : int
+    protected function lint(string $file) : ?int
     {
+        if (substr($file, -4) !== '.php') {
+            return null;
+        }
+
         $file = escapeshellarg($file);
         passthru("php -l {$file} 2>&1", $exit);
         return $exit;

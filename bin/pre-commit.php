@@ -22,4 +22,5 @@ if (! $autoloader) {
 require $autoloader;
 
 $command = new \Producer\Githooks\PreCommit();
-exit($command());
+$code = $command();
+exit($code);
