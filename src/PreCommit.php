@@ -7,8 +7,8 @@ class PreCommit
     {
         $files = $this->getChangedFiles();
         foreach ($files as $file) {
-            $exit = $this->lint($file);
-            if ($exit === 1) {
+            $exit = (int) $this->lint($file);
+            if ($exit > 0) {
                 return $exit;
             }
         }
