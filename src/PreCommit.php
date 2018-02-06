@@ -3,7 +3,7 @@ namespace Producer\Githooks;
 
 class PreCommit
 {
-    public function __invoke(array $args = []) : int
+    public function __invoke() : int
     {
         $files = $this->getChangedFiles();
         foreach ($files as $file) {
