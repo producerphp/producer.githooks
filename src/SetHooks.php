@@ -17,7 +17,7 @@ class SetHooks
         echo "Git hooks at {$hooks}." . PHP_EOL;
 
         $hook = "{$hooks}/pre-commit";
-        $script = __DIR__ . '/pre-commit.php';
+        $script = dirname(__DIR__) . '/bin/pre-commit.php';
         $cmd = "php {$script}" . PHP_EOL;
 
         if (! is_file($hook)) {
